@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
+
 
 def make_synthetic_data(m=120, n=300, k=15, noise_std=0.01, seed=0):
 
@@ -21,12 +24,6 @@ def make_synthetic_data(m=120, n=300, k=15, noise_std=0.01, seed=0):
     b = A @ x_true + noise  # b = Ax* + noise
 
     return A, b, x_true
-
-if __name__ == "__main__":
-    A, b, x_true = make_synthetic_data()
-    print("A shape:", A.shape)
-    print("b shape:", b.shape)
-    print("x_true nonzeros:", np.count_nonzero(x_true))
 
 
 def lasso_objective(A, b, x, lam):
@@ -75,9 +72,18 @@ def ista(A, b, lam, max_iter=500, tol=1e-6):
 if __name__ == "__main__":
     A, b, x_true = make_synthetic_data(m=120, n=300, k=15, noise_std=0.01, seed=0)
 
-    lam = 0.05  # you can tweak this
+    lam = 0.05
     x_hat, hist = ista(A, b, lam, max_iter=1000)
 
     print("Recovered nonzeros:", np.count_nonzero(x_hat))
     print("Final objective:", hist["obj"][-1])
     print("L2 error ||x_hat - x_true||:", np.linalg.norm(x_hat - x_true))
+
+    # ---- Plot 1: Objective value ----
+    plt.figure()
+    plt.plot(hist["obj"])
+    plt.xlabel("Iteration")
+    plt.ylabel("Objective value")
+    plt.title(f"ISTA convergence (λ = {lam})")
+    plt.grid(True)
+    plt.show()
