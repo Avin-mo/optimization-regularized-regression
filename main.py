@@ -110,7 +110,7 @@ if __name__ == "__main__":
     plt.show()
 
 
-    # ---- Plot 3: lambda sweep ----
+    # ---- Plot 4: lambda sweep ----
     lams = [0.005, 0.01, 0.02, 0.05, 0.1, 0.2]
     final_nnz = []
     final_err = []
