@@ -97,3 +97,43 @@ if __name__ == "__main__":
     plt.title(f"Sparsity over iterations (λ = {lam})")
     plt.grid(True)
     plt.show()
+
+    # ---- Plot 3: Support comparison (x_true vs x_hat) ----
+    plt.figure()
+    plt.stem(x_true, linefmt='C0-', markerfmt='C0o', basefmt=" ", label='x_true')
+    plt.stem(x_hat,  linefmt='C1-', markerfmt='C1x', basefmt=" ", label='x_hat')
+    plt.xlabel("Index")
+    plt.ylabel("Value")
+    plt.title(f"True vs recovered coefficients (λ = {lam})")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+    # ---- Plot 3: lambda sweep ----
+    lams = [0.005, 0.01, 0.02, 0.05, 0.1, 0.2]
+    final_nnz = []
+    final_err = []
+
+    for lam_i in lams:
+        x_hat_i, hist_i = ista(A, b, lam_i, max_iter=2000)
+        final_nnz.append(np.count_nonzero(x_hat_i))
+        final_err.append(np.linalg.norm(x_hat_i - x_true))
+
+    plt.figure()
+    plt.plot(lams, final_nnz, marker='o')
+    plt.xscale("log")
+    plt.xlabel("λ")
+    plt.ylabel("Final number of nonzeros")
+    plt.title("Sparsity vs λ")
+    plt.grid(True)
+    plt.show()
+
+    plt.figure()
+    plt.plot(lams, final_err, marker='o')
+    plt.xscale("log")
+    plt.xlabel("λ")
+    plt.ylabel("||x_hat - x_true||_2")
+    plt.title("Recovery error vs λ")
+    plt.grid(True)
+    plt.show()
