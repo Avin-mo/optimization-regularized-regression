@@ -89,7 +89,7 @@ if __name__ == "__main__":
     plt.show()
 
 
-    # ---- Plot 1: Nonzero count ----
+    # ---- Plot 2: Nonzero count ----
     plt.figure()
     plt.plot(hist["nnz"])
     plt.xlabel("Iteration")
@@ -97,7 +97,3 @@ if __name__ == "__main__":
     plt.title(f"Sparsity over iterations (λ = {lam})")
     plt.grid(True)
     plt.show()
-
-
-
-    # ---- Plot 1: Sparsity pattern ----
