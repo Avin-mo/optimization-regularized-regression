@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
+# generate synthetic data
 def make_synthetic_data(m=120, n=300, k=15, noise_std=0.01, seed=0):
 
     # m = number of samples (rows)
@@ -26,24 +26,29 @@ def make_synthetic_data(m=120, n=300, k=15, noise_std=0.01, seed=0):
     return A, b, x_true
 
 
+# lasso objective function
 def lasso_objective(A, b, x, lam):
     r = A @ x - b
     return 0.5 * (r @ r) + lam * np.linalg.norm(x, 1)
 
+# gradient of least squares
 def grad_least_squares(A, b, x):
     # gradient of 0.5||Ax-b||^2
     return A.T @ (A @ x - b)
 
+# soft thresholding
 def soft_threshold(z, t):
     return np.sign(z) * np.maximum(np.abs(z) - t, 0.0)
 
 
+# lipschitz step
 def lipschitz_step(A):
     # L = ||A||_2^2, so step = 1/L
     smax = np.linalg.norm(A, 2)
     L = smax * smax
     return 1.0 / L
 
+# iterative soft thresholding algorithm
 def ista(A, b, lam, max_iter=500, tol=1e-6):
     n = A.shape[1]
     x = np.zeros(n)
@@ -69,6 +74,7 @@ def ista(A, b, lam, max_iter=500, tol=1e-6):
 
     return x, history
 
+# main function
 if __name__ == "__main__":
     A, b, x_true = make_synthetic_data(m=120, n=300, k=15, noise_std=0.01, seed=0)
 
