@@ -90,7 +90,7 @@ if __name__ == "__main__":
     plt.plot(hist["obj"])
     plt.xlabel("Iteration")
     plt.ylabel("Objective value")
-    plt.title(f"ISTA convergence (λ = {lam})")
+    plt.title(f"ISTA convergence (λ = {lam}) - Objective vs. Iterations")
     plt.grid(True)
     plt.show()
 
