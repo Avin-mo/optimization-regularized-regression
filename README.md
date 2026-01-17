@@ -105,19 +105,42 @@ Rather than viewing ISTA as simply “slow,” these results show that much of i
 ### Visual Results
 
 ![Objective vs Iterations](figures/objective_vs_iterations.png)
-*Figure 1: Objective value over iterations.*
+
+**Figure 1 — Objective vs Iterations.**  
+This plot shows monotone decrease of the full LASSO objective under ISTA, confirming correct step-size selection and implementation. Beyond monotonicity, the curve exhibits a two-phase pattern: a rapid initial decrease driven by large error correction and sparsity enforcement, followed by slower refinement once the active set begins to stabilize. This highlights that most structural progress happens early in the optimization.
+
+---
 
 ![Sparsity vs Iterations](figures/sparsity_vs_iterations.png)
-*Figure 2: Number of nonzero coefficients over iterations.*
+
+**Figure 2 — Sparsity over Iterations.**  
+This plot tracks the number of nonzero coefficients at each iteration, making the effect of the ℓ₁ proximal step explicit. Sparsity increases gradually rather than collapsing immediately, indicating that support identification is refined continuously as the algorithm balances data fit and regularization. This shows that sparsity enforcement remains active throughout convergence.
+
+---
 
 ![True vs Recovered Coefficients](figures/true_vs_recovered.png)
-*Figure 3: Comparison of true and recovered coefficients.*
+
+**Figure 3 — True vs Recovered Coefficients.**  
+This comparison shows that ISTA successfully recovers the correct support of the true sparse signal while shrinking coefficient magnitudes. The alignment of nonzero locations confirms effective structure recovery, while the magnitude bias reflects the inherent bias–sparsity tradeoff of ℓ₁ regularization. This demonstrates that ISTA is solving the intended objective rather than merely enforcing sparsity.
+
+---
 
 ![Sparsity vs Lambda](figures/sparsity_vs_lambda.png)
-*Figure 4: Final sparsity as a function of λ.*
+
+**Figure 4 — Sparsity vs λ.**  
+This plot shows that the final number of nonzero coefficients decreases monotonically as λ increases. Larger values of λ strengthen the ℓ₁ penalty, pushing the solution toward the coordinate axes and producing sparser models. This confirms that sparsity is a predictable and controllable consequence of the regularization parameter.
+
+---
 
 ![Recovery Error vs Lambda](figures/error_vs_lambda.png)
-*Figure 5: Recovery error as a function of λ.*
+
+**Figure 5 — Recovery Error vs λ.**  
+This plot shows how the ℓ₂ recovery error varies with λ. Small values of λ lead to higher error due to overfitting noise, while larger values stabilize the solution through stronger regularization. The curve illustrates the bias–variance tradeoff inherent in ℓ₁-regularized estimation and emphasizes that λ fundamentally shapes the geometry seen by the optimizer.
+
+---
+
+Together, these results show that ISTA’s practical behavior is governed less by asymptotic convergence rates and more by how quickly it identifies and stabilizes the active set.
+
 
 ---
 
